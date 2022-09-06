@@ -23,33 +23,34 @@ const App = () => {
   });
 
   const handleGameOver = useCallback((score) => {
+    console.log(` You've scored ${score} points.`)
     setIsGameOver(true);
     setScore(score);
-    console.log(` You've scored ${score} points.`)
   }, []);
 
   useEffect(() => {
     addEventListener("GameOver", handleGameOver);
     return () => {
+      unload();
       removeEventListener("GameOver", handleGameOver);
     };
-  }, [addEventListener, removeEventListener, handleGameOver]);
+  }, [addEventListener, removeEventListener, handleGameOver, unload]);
 
   return (
-    <Fragment>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Unity
         className="unity"
         unityProvider={unityProvider}
         style={{
-          width: "100%",
+          width: "95%",
           aspectRatio: "16:9",
           overflow: "hidden",
         }}
       />
       {isGameOver === true && (
-        <p style={{ color: "white" }}>{`Game Over You've scored ${score} points.`}</p>
+        <p>{`Game Over You've scored ${score} points.`}</p>
       )}
-    </Fragment>
+    </div>
   );
 }
 
