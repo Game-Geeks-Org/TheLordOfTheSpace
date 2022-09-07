@@ -1,8 +1,6 @@
-import React, {useState } from "react";
+import React, {useState, useEffect} from "react";
 import Game from './components/Game'
-import {
-		wallet
-	} from './Utils/wallet';
+import {wallet, getActiveAccount, disconnectWallet, connectWallet} from './Utils/wallet';
 import {TezosOperationType, ColorMode } from "@airgap/beacon-sdk";
 
 
@@ -10,6 +8,7 @@ import {TezosOperationType, ColorMode } from "@airgap/beacon-sdk";
 const App = () => {
 	const [txn, setTxn] = useState(false);
 	const [msg, setMsg] = useState("Click Start Game to pay 3 XTZ and start the game.");
+	const [isActive, setIsActive] = useState(false)
 	let myAddress = ""
 	const sendXTZ = async (amount) => {
 		await wallet.client.setColorMode(ColorMode.DARK);
@@ -39,6 +38,21 @@ const App = () => {
 		});
 		
 	}
+
+	const getHistory = async () => {
+		const address = await getActiveAccount()
+		if (address) {
+			setIsActive(true)
+		}
+
+	}
+	useEffect(() => {
+		const interval = setInterval(() => {
+			getHistory();
+		}, 1000);
+		return () => clearInterval(interval);
+	}, []);
+
 	
 	if (txn === true) {
 		return (
@@ -53,10 +67,17 @@ const App = () => {
 					<h1>Game: The Lords of the Space</h1>
 					<h2>Game Fees: 3 XTZ</h2>
 					<p>Note: Don't refresh the website after the transaction is done</p>
-					<button onClick={async()=>{
+					{isActive ? <><button onClick={async()=>{
 						setMsg("Transaction in Process");
-						await sendXTZ(3);}}>Start Game</button>
-					<p>{msg}</p>
+						await sendXTZ(3);}}>Start Game</button> &nbsp; 
+					<button onClick={async()=>{
+						await disconnectWallet();
+						setIsActive(false);
+						}}>Disconnect Wallet</button>
+					<p>{msg}</p> </>:  <button onClick={async()=>{
+						await connectWallet();
+						setIsActive(true);
+						}}>Connect Wallet</button>}
 				</div>
 			</>
 		)
