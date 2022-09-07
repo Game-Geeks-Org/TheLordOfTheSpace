@@ -19,7 +19,7 @@ const App = () => {
 	} else {
 		return (
 			<>
-				<div style = {{textAlign: 'center'}}>
+				<div style = {{textAlign: 'center', color: "#fff"}}>
 					<h1>Game: The Lords of the Space</h1>
 					<h2>Game Fees: 3 XTZ</h2>
 					<p>Note: Don't refresh the website after the transaction is done</p>
