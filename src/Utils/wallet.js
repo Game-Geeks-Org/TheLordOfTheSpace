@@ -79,18 +79,15 @@ const sendXTZ = async (amount) => {
 	{
 		kind: TezosOperationType.TRANSACTION,
 		destination: myAddress, // Send to ourselves
-		amount: `${amount*1000000}`, // Amount in mutez, the smallest unit in Tezos
+		amount: `${1}`, // Amount in mutez, the smallest unit in Tezos
 	},
 	]).then(async(op)=>{
 		console.log(op)
-		await op.confirmations();
-		return true;
+		return "true";
 	}).catch((err)=>{
 		console.log(err);
-		return false
+		return "false"
 	});
-	
-
 	
 }
 
