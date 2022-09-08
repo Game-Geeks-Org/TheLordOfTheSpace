@@ -12,6 +12,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    
 }
 
 body{
@@ -23,7 +24,7 @@ body{
 }
 
 .wrapper p{
-    color: brown !important;
+    color: #BF1E2E!important;
     font-family: 'IM Fell Great Primer SC', serif;
     font-size: 45px;
 }
@@ -94,9 +95,6 @@ body{
     padding-top: 20px;
 }
 
-.single-img_desc{
-    text-align: center;
-}
 
 .single-img_desc{
     color: white;
@@ -119,13 +117,9 @@ body{
     border: 1px solid #BF1E2E;
     color: white;
     font-size: 24px;
+    border-radius: 11px;
 }
 
-.pay_btn1{
-    width: 250px;
-    height: 45px;
-
-}
 
 .pay_btn:hover{
     background: #BF1E2E;
@@ -138,7 +132,89 @@ body{
 }
 
 
-.single_mode_img1 img{
-    border: 1px solid #BF1E2E;
+/* RESPONSIVENESS  */
+
+@media only screen and (max-width: 580px){
+
+    .single_img{
+        text-align: center;
+        width: 100%;
+
+    }
+
+
+    .hero_wrapper{
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pay_btn{
+        text-align: center;
+        margin: auto !important;
+        margin-left: 40px;
+        width: 150px;
+        height: 50px;
+      
+    }
+
+
+    .hero_content .desc_1{
+        font-size: 15px;
+    }
+
+
+    .hero_content .desc_2{
+        font-size: 35px;
+    }
+
+
+    .hero-img{
+        width: 100%;
+        text-align: center;
+    }
+
+
+    .logo{
+        width: 80px;
+    }
+
+
+
+    .game_mode_title p{
+        font-size: 25px;
+        text-align: left;
+    }
+
+    .wrapper p{
+        font-size: 25px;
+    }
+    
+} 
+
+
+@media only screen and (max-width:991px){
+    .hero_content .desc_1{
+        font-size: 20px;
+    }
+
+    .hero_content .desc_2{
+        font-size: 50px;
+    }
+
+    #root > section > div.container > div > div > div:nth-child(2) > div > img{
+        width: 250px;
+        margin-top: 50px;
+    }
+
+    .single-img_desc{
+        text-align: left;
+    }
+
+    .img_status{
+        text-align: left;
+    }
 
 }

@@ -75,10 +75,10 @@ const App = () => {
 			<>
 			<section className="container game_section">
 				<div className=" d-flex align-items-center justify-content-center gap-5 wrapper">
-					<div>
-						<img src={logo}  alt="img"/>
+					<div className="">
+						<img src={logo} className='logo'  alt="img"/>
 					</div>
-					<p className="text-white sect_title">Presents</p>
+					<p className="sect_title">Presents</p>
 				</div>
 				<Container>
 					<Row>
@@ -106,14 +106,14 @@ const App = () => {
 									<div className="game_mode_section">
 									<div className="game_mode_title">
 									<p className="">Game Mode </p>
-									<div style={{ borderTop: "2px solid #BF1E2E", marginLeft: 5, marginRight: 20 }}></div>
+									<div style={{ borderTop: "2px solid #BF1E2E", marginLeft: 5, marginRight: 15 }}></div>
 								</div>
 								
 									</div>
-									<div className="container">
+									<div className="container-lg">
 									<div className="game_mode_wrapper">
-										<div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-4">
-											<div className="single_img_wrapper">
+										<div class="row gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+											<div className="single_img_wrapper col">
 												<div className="single_img">
 												<img src={image} width='180px' alt="img" />
 												</div>
@@ -124,21 +124,21 @@ const App = () => {
 											</button>
 											
 											</div>
-											<div className="single_img_wrapper">
+											<div className="single_img_wrapper col">
 												<div className="single_img">
 												<img src={imag2} width='180px' alt="img" />
 												</div>
 											<p className="single-img_desc">Beat my <span>Score</span></p>
 											<p className="img_status">Coming Soon</p>
 											</div>
-											<div className="single_img_wrapper">
+											<div className="single_img_wrapper col">
 												<div className="single_img">
 												<img src={imag3} width='180px' alt="img" />
 												</div>
 											<p className="single-img_desc">Top of The <span>Game</span></p> 
 											<p className="img_status">Coming Soon</p>
 											</div>
-											<div className="single_img_wrapper">
+											<div className="single_img_wrapper col">
 												<div className="single_img">
 												<img src={imag4} width='180px' alt="img" />
 												</div>
