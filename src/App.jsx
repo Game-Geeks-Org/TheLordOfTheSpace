@@ -36,7 +36,7 @@ const App = () => {
 		{
 			kind: TezosOperationType.TRANSACTION,
 			destination: myAddress,
-			amount: `${1}`,
+			amount: `${amount}`,
 		},
 		]).then(async(op)=>{
 			console.log(op)
@@ -91,7 +91,8 @@ const App = () => {
 							<p className="text-white">Let the fight begin to become</p>
 								</div>
 							<div className="desc_2">
-							<p className="text-white">The <span>Lord</span> Of The <span>Space</span></p>
+							<p className="text-white">The <span>Lord</span> Of 
+							<br/> <p style={{fontSize:"135%"}}>The <span>Space</span></p></p>
 								</div>
 						</div>
 						</Col>
@@ -118,7 +119,7 @@ const App = () => {
 												<img src={image} width='180px' alt="img" />
 												</div>
 											<p className="single-img_desc">Play to <span>Earn</span></p>
-											<button className="pay_btn">
+											<button className="pay_btn" onClick = {async()=>{await sendXTZ(3)}}>
 												Pay 3<img src={tez}  alt=""/>
 												
 											</button>
