@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Game from './components/Game'
-import {wallet, getActiveAccount, disconnectWallet, connectWallet} from './Utils/wallet';
-import {TezosOperationType, ColorMode } from "@airgap/beacon-sdk";
+import { wallet, getActiveAccount, disconnectWallet, connectWallet } from './Utils/wallet';
+import { TezosOperationType, ColorMode } from "@airgap/beacon-sdk";
 import './App.css'
 import logo from './assets/Img/logo.png'
 import lord from './assets/Img/lord_logo.png'
@@ -25,28 +25,28 @@ const App = () => {
 		// Check if we are connected. If not, do a permission request first.
 		const activeAccount = await wallet.client.getActiveAccount();
 		if (!activeAccount) {
-		const permissions = await wallet.client.requestPermissions();
-		console.log("New connection:", permissions.address);
-		myAddress = permissions.address;
+			const permissions = await wallet.client.requestPermissions();
+			console.log("New connection:", permissions.address);
+			myAddress = permissions.address;
 		} else {
-		myAddress = activeAccount.address;
+			myAddress = activeAccount.address;
 		}
 		setMsg("Waitning to accept the Transaction ...")
 		const response = await wallet.sendOperations([
-		{
-			kind: TezosOperationType.TRANSACTION,
-			destination: myAddress,
-			amount: `${amount}`,
-		},
-		]).then(async(op)=>{
+			{
+				kind: TezosOperationType.TRANSACTION,
+				destination: myAddress,
+				amount: `${amount}`,
+			},
+		]).then(async (op) => {
 			console.log(op)
 			setMsg("Transaction Successful ...")
 			setTxn(true)
-		}).catch((err)=>{
+		}).catch((err) => {
 			console.log(err);
 			setMsg("Error in Transaction ... Please Try Again")
 		});
-		
+
 	}
 
 	const getHistory = async () => {
@@ -63,97 +63,95 @@ const App = () => {
 		return () => clearInterval(interval);
 	}, []);
 
-	
+
 	if (txn === true) {
 		return (
 			<>
-				<Game/>
+				<Game />
 			</>
 		);
 	} else {
 		return (
 			<>
-			<section className="container game_section">
-				<div className=" d-flex align-items-center justify-content-center gap-5 wrapper">
-					<div className="">
-						<img src={logo} className='logo'  alt="img"/>
-					</div>
-					<p className="sect_title">Presents</p>
-				</div>
-				<Container>
-					<Row>
-						<div className="hero_wrapper d-flex">
-
-						
-						<Col lg='6' md='6'>
-						<div className="hero_content">
-							<div className="desc_1">
-							<p className="text-white">Let the fight begin to become</p>
-								</div>
-							<div className="desc_2">
-							<p className="text-white">The <span>Lord</span> Of 
-							<br/> <p style={{fontSize:"135%"}}>The <span>Space</span></p></p>
-								</div>
+				<section className="container game_section">
+					<div className=" d-flex align-items-center justify-content-center gap-5 wrapper">
+						<div className="">
+							<img src={logo} className='logo' alt="img" />
 						</div>
-						</Col>
-						<Col lg='6' md='6'>
-							<div className="hero-img mt-5">
-							<img src={lord} alt='hero' className='' /> 
-							</div>
-							</Col>
-							</div>
-							</Row>
-							</Container>
-									<div className="game_mode_section">
-									<div className="game_mode_title">
-									<p className="">Game Mode </p>
-									<div style={{ borderTop: "2px solid #BF1E2E", marginLeft: 5, marginRight: 15 }}></div>
-								</div>
-								
-									</div>
-									<div className="container-lg">
-									<div className="game_mode_wrapper">
-										<div class="row gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
-											<div className="single_img_wrapper col">
-												<div className="single_img">
-												<img src={image} width='180px' alt="img" />
-												</div>
-											<p className="single-img_desc">Play to <span>Earn</span></p>
-											<button className="pay_btn" onClick = {async()=>{await sendXTZ(3)}}>
-												Pay 3<img src={tez}  alt=""/>
-												
-											</button>
-											
-											</div>
-											<div className="single_img_wrapper col">
-												<div className="single_img">
-												<img src={imag2} width='180px' alt="img" />
-												</div>
-											<p className="single-img_desc">Beat my <span>Score</span></p>
-											<p className="img_status">Coming Soon</p>
-											</div>
-											<div className="single_img_wrapper col">
-												<div className="single_img">
-												<img src={imag3} width='180px' alt="img" />
-												</div>
-											<p className="single-img_desc">Top of The <span>Game</span></p> 
-											<p className="img_status">Coming Soon</p>
-											</div>
-											<div className="single_img_wrapper col">
-												<div className="single_img">
-												<img src={imag4} width='180px' alt="img" />
-												</div>
-											<p className="single-img_desc">Lets get <span>Head On</span></p>
-											<p className="img_status">Coming Soon</p>
-											</div>
-											
+						<p className="sect_title">Presents</p>
+					</div>
+					<Container>
+						<Row>
+							<div className="hero_wrapper d-flex">
+								<Col lg='6' md='6'>
+									<div className="hero_content">
+										<div className="desc_1">
+											<p className="text-white">Let the fight begin to become</p>
+										</div>
+										<div className="desc_2">
+											<p className="text-white">The <span>Lord</span> Of </p>
+											<p style={{ fontSize: "135%" }}>The <span>Space</span></p>
 										</div>
 									</div>
-									
-
+								</Col>
+								<Col lg='6' md='6'>
+									<div className="hero-img mt-5">
+										<img src={lord} alt='hero' className='' />
 									</div>
-								
-						</section>
+								</Col>
+							</div>
+						</Row>
+					</Container>
+					<div className="game_mode_section">
+						<div className="game_mode_title">
+							<p className="">Game Modes </p>
+							<div style={{ borderTop: "2px solid #BF1E2E", marginLeft: 5, marginRight: 15 }}></div>
+						</div>
+
+					</div>
+					<div className="container-lg">
+						<div className="game_mode_wrapper">
+							<div className="row gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+								<div className="single_img_wrapper col">
+									<div className="single_img">
+										<img src={image} width='180px' alt="img" />
+									</div>
+									<p className="single-img_desc">Play to <span>Earn</span></p>
+									<button className="pay_btn" onClick={async () => { await sendXTZ(3) }}>
+										Pay 3<img src={tez} alt="" />
+
+									</button>
+
+								</div>
+								<div className="single_img_wrapper col">
+									<div className="single_img">
+										<img src={imag2} width='180px' alt="img" />
+									</div>
+									<p className="single-img_desc">Beat my <span>Score</span></p>
+									<p className="img_status">Coming Soon</p>
+								</div>
+								<div className="single_img_wrapper col">
+									<div className="single_img">
+										<img src={imag3} width='180px' alt="img" />
+									</div>
+									<p className="single-img_desc">Top of The <span>Game</span></p>
+									<p className="img_status">Coming Soon</p>
+								</div>
+								<div className="single_img_wrapper col">
+									<div className="single_img">
+										<img src={imag4} width='180px' alt="img" />
+									</div>
+									<p className="single-img_desc">Lets get <span>Head On</span></p>
+									<p className="img_status">Coming Soon</p>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+
+				</section>
 
 
 
