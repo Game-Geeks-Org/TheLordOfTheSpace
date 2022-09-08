@@ -2,6 +2,16 @@ import React, {useState, useEffect} from "react";
 import Game from './components/Game'
 import {wallet, getActiveAccount, disconnectWallet, connectWallet} from './Utils/wallet';
 import {TezosOperationType, ColorMode } from "@airgap/beacon-sdk";
+import './App.css'
+import logo from './assets/Img/logo.png'
+import lord from './assets/Img/lord_logo.png'
+import { Container, Row, Col } from 'reactstrap'
+import image from './assets/Img/images.png'
+import imag2 from './assets/Img/score.png'
+import imag3 from './assets/Img/top.png'
+import imag4 from './assets/Img/head.png'
+import tez from './assets/Img/tez.png'
+
 
 
 
@@ -63,7 +73,91 @@ const App = () => {
 	} else {
 		return (
 			<>
-				<div style = {{textAlign: 'center', color: "#fff"}}>
+			<section className="container game_section">
+				<div className=" d-flex align-items-center justify-content-center gap-5 wrapper">
+					<div>
+						<img src={logo}  alt="img"/>
+					</div>
+					<p className="text-white sect_title">Presents</p>
+				</div>
+				<Container>
+					<Row>
+						<div className="hero_wrapper d-flex">
+
+						
+						<Col lg='6' md='6'>
+						<div className="hero_content">
+							<div className="desc_1">
+							<p className="text-white">Let the fight begin to become</p>
+								</div>
+							<div className="desc_2">
+							<p className="text-white">The <span>Lord</span> Of The <span>Space</span></p>
+								</div>
+						</div>
+						</Col>
+						<Col lg='6' md='6'>
+							<div className="hero-img mt-5">
+							<img src={lord} alt='hero' className='' /> 
+							</div>
+							</Col>
+							</div>
+							</Row>
+							</Container>
+									<div className="game_mode_section">
+									<div className="game_mode_title">
+									<p className="">Game Mode </p>
+									<div style={{ borderTop: "2px solid #BF1E2E", marginLeft: 5, marginRight: 20 }}></div>
+								</div>
+								
+									</div>
+									<div className="container">
+									<div className="game_mode_wrapper">
+										<div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-4">
+											<div className="single_img_wrapper">
+												<div className="single_img">
+												<img src={image} width='180px' alt="img" />
+												</div>
+											<p className="single-img_desc">Play to <span>Earn</span></p>
+											<button className="pay_btn">
+												Pay 3<img src={tez}  alt=""/>
+												
+											</button>
+											
+											</div>
+											<div className="single_img_wrapper">
+												<div className="single_img">
+												<img src={imag2} width='180px' alt="img" />
+												</div>
+											<p className="single-img_desc">Beat my <span>Score</span></p>
+											<p className="img_status">Coming Soon</p>
+											</div>
+											<div className="single_img_wrapper">
+												<div className="single_img">
+												<img src={imag3} width='180px' alt="img" />
+												</div>
+											<p className="single-img_desc">Top of The <span>Game</span></p> 
+											<p className="img_status">Coming Soon</p>
+											</div>
+											<div className="single_img_wrapper">
+												<div className="single_img">
+												<img src={imag4} width='180px' alt="img" />
+												</div>
+											<p className="single-img_desc">Lets get <span>Head On</span></p>
+											<p className="img_status">Coming Soon</p>
+											</div>
+											
+										</div>
+									</div>
+									
+
+									</div>
+								
+						</section>
+
+
+
+
+				{/* <div style = {{textAlign: 'center', color: "#fff"}}>
 					<h1>Game: The Lords of the Space</h1>
 					<h2>Game Fees: 3 XTZ</h2>
 					<p>Note: Don't refresh the website after the transaction is done</p>
@@ -78,7 +172,7 @@ const App = () => {
 						await connectWallet();
 						setIsActive(true);
 						}}>Connect Wallet</button>}
-				</div>
+				</div> */}
 			</>
 		)
 	}

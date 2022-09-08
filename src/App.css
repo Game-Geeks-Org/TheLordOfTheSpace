@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&family=Roboto:wght@500&display=swap');
+
+/* body{
+    font-family: 'IM Fell Great Primer SC', serif;
+    font-family: 'Inter', sans-serif;
+} */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background: black !important;
+}
+
+.game_section{
+    margin-top: 90px;
+}
+
+.wrapper p{
+    color: brown !important;
+    font-family: 'IM Fell Great Primer SC', serif;
+    font-size: 45px;
+}
+
+.hero_wrapper{
+    margin-left: 100px;
+}
+
+
+
+
+.hero_content{
+    display:  block;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    margin-top: 68px;
+}
+
+.hero_content .desc_1{
+    font-size: 27px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 3px;
+    line-height: 36px;
+   
+}
+
+
+.hero_content .desc_2{
+    font-size: 72px;
+    font-family: 'IM Fell Great Primer SC', serif;
+    line-height: 88px;
+    margin-top: 8px !important;
+}
+
+
+.desc_2 span{
+    color: #BF1E2E;
+
+}
+
+
+.game_mode_title p{
+    font-size: 36px;
+    font-family: 'Inter', sans-serif;
+    color: #979797;
+    
+}
+
+.game_mode_section{
+    margin-top: 59px;
+}
+
+.game_mode_wrapper{
+    margin-top: 34px !important;
+    margin: auto;
+    align-items: center;
+  
+}
+
+.single_img{
+    border: 1px solid #BF1E2E;
+    text-align: center;
+    border-radius: 7px;
+    width: 250px;
+    height: 250px;
+    padding-top: 20px;
+}
+
+.single-img_desc{
+    text-align: center;
+}
+
+.single-img_desc{
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 18px;
+    font-family:'Inter', sans-serif ;
+}
+
+
+
+.single_img, p span{
+    color: #BF1E2E;
+}
+
+.pay_btn{
+    width: 250px;
+    height: 45px;
+    background: transparent;
+    border: 1px solid #BF1E2E;
+    color: white;
+    font-size: 24px;
+}
+
+.pay_btn1{
+    width: 250px;
+    height: 45px;
+
+}
+
+.pay_btn:hover{
+    background: #BF1E2E;
+}
+
+.img_status{
+    font-size: 24px;
+    color: #979797 !important;
+    text-align: center;
+}
+
+
+.single_mode_img1 img{
+    border: 1px solid #BF1E2E;
+
+}
