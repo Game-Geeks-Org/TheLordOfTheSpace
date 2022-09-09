@@ -43,12 +43,12 @@ function Game() {
   }, [addEventListener, removeEventListener, unload, handleGameOver, handleGameStart]);
 
   return (
-    <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
       <Unity
         className="unity"
         unityProvider={unityProvider}
         style={{
-          width: "105%",
+          width: "100%",
           aspectRatio: "16:9",
           overflow: "hidden",
         }}
