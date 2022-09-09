@@ -18,6 +18,8 @@ import tez from './assets/Img/tez.png'
 const App = () => {
 	const [txn, setTxn] = useState(false);
 	const [msg, setMsg] = useState("Click Start Game to pay 3 XTZ and start the game.");
+	const [wallet, setWallet] = useState(null)
+	const [disconnect, showDisconnect] =useState(false)
 	const [isActive, setIsActive] = useState(false)
 	let myAddress = ""
 	const sendXTZ = async (amount) => {
@@ -56,12 +58,42 @@ const App = () => {
 		}
 
 	}
+
+	
+
 	useEffect(() => {
 		const interval = setInterval(() => {
 			getHistory();
 		}, 1000);
 		return () => clearInterval(interval);
 	}, []);
+
+
+
+	// WALLET CONNECTION
+	const handleConnectWallet = async () => {
+        const { wallet } = await connectWallet();
+        setWallet(wallet);
+      };
+
+	  const handleDisconnectWallet = async () => {
+        const { wallet } = await disconnectWallet();
+        setWallet(wallet);
+      };
+
+	  
+	  useEffect(() => {
+        const func = async () => {
+          const account = await getActiveAccount();
+          if (account) {
+            setWallet(account.address);
+          }
+        };
+        func();
+      }, []);
+
+
+	  //WALLET CONNECTION END
 
 
 	if (txn === true) {
@@ -104,7 +136,49 @@ const App = () => {
 					</Container>
 					<div className="game_mode_section">
 						<div className="game_mode_title">
-							<p className="">Game Modes </p>
+							<div className="d-flex justify-content-between">
+								<div>
+								<p className="">Game Modes </p>
+								</div>
+								<div>
+								{
+								wallet ? (
+								<div className='wallet_connection_wrapper' 
+								onMouseEnter={() => showDisconnect(true)}
+								onMouseLeave={() =>showDisconnect(false)}>
+
+                            <div className='wallet_btn'>
+                              <span className=''>
+                              {`tz${wallet.slice(
+                                    2,
+                                    3
+                                  )}...${wallet.slice(
+                                    wallet.length - 4,
+                                    wallet.length
+                                  )}`}</span>
+                            </div>
+                            {
+                              disconnect && (
+                                <div className='disconnect_btn'>
+                                <span className='disconnect' onClick={handleDisconnectWallet}>Disconnect<i class="ri-edit-circle-line"></i></span>
+                                </div>
+                              )
+                            }
+
+								</div>
+
+                    
+
+									):(
+									<button className='wallet_btn' onClick={handleConnectWallet}>
+										Connect Wallet
+									</button>
+									)
+								}
+
+								</div>
+							</div>
+							
 							<div style={{ borderTop: "2px solid #BF1E2E", marginLeft: 5, marginRight: 15 }}></div>
 						</div>
 
