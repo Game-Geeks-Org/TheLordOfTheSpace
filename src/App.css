@@ -131,6 +131,51 @@ body{
     text-align: center;
 }
 
+.wallet_btn{
+    border: 4px solid #FE53BB;
+    background: transparent;
+    width: 194px;
+    height: 41px;
+    border-radius: 52px;
+    color: #ffff;
+    font-size: 17px;
+    text-align: center;
+    position: relative;
+ 
+    
+}
+
+.wallet_btn:hover{
+    opacity: 0.2;
+}
+
+.wallet_connection_wrapper .disconnect{
+    cursor: pointer;
+    position:  absolute;
+    margin-left: 20px;
+    border-radius: 20px;
+    margin-top: 6px;
+   
+
+}
+
+.disconnect, span i{
+    margin-bottom: 100px;
+    font: bold;
+    margin: auto 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.disconnect{
+    font-size: 17px;
+   
+
+}
+
+
+
+
 
 /* RESPONSIVENESS  */
 
