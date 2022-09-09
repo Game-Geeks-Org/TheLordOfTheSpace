@@ -23,7 +23,6 @@ const App = () => {
 	const [isActive, setIsActive] = useState(false)
 	let myAddress = ""
 	const sendXTZ = async (amount) => {
-		await wallet.client.setColorMode(ColorMode.DARK);
 		// Check if we are connected. If not, do a permission request first.
 		const activeAccount = await wallet.client.getActiveAccount();
 		if (!activeAccount) {

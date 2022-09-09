@@ -23,16 +23,16 @@ return await wallet.client.getActiveAccount();
 };
 
 const connectWallet = async () => {
-await wallet.client.setColorMode(ColorMode.DARK);
-let account = await wallet.client.getActiveAccount();
+	await wallet.client.setColorMode(ColorMode.DARK);
+	let account = await wallet.client.getActiveAccount();
 
-if (!account) {
-	await wallet.requestPermissions({
-	network: { type: preferredNetwork },
-	});
-	account = await wallet.client.getActiveAccount();
-}
-return { success: true, wallet: account.address };
+	if (!account) {
+		await wallet.requestPermissions({
+		network: { type: preferredNetwork },
+		});
+		account = await wallet.client.getActiveAccount();
+	}
+	return { success: true, wallet: account.address };
 };
 
 const disconnectWallet = async () => {

@@ -152,9 +152,9 @@ body{
 .wallet_connection_wrapper .disconnect{
     cursor: pointer;
     position:  absolute;
-    margin-left: 20px;
+    margin-left: 45px;
     border-radius: 20px;
-    margin-top: 6px;
+    /* margin-top: 6px; */
    
 
 }
