@@ -14,10 +14,10 @@ function Game() {
     removeEventListener,
     sendMessage
   } = useUnityContext({
-    loaderUrl: "SSBuild/Build/webgl.loader.js",
-    dataUrl: "SSBuild/Build/webgl.data",
-    frameworkUrl: "SSBuild/Build/webgl.framework.js",
-    codeUrl: "SSBuild/Build/webgl.wasm",
+    loaderUrl: "SSBuild/Build/web.loader.js",
+    dataUrl: "SSBuild/Build/web.data",
+    frameworkUrl: "SSBuild/Build/web.framework.js",
+    codeUrl: "SSBuild/Build/web.wasm",
   });
 
   const handleGameOver = useCallback((score) => {
@@ -28,7 +28,7 @@ function Game() {
 
   const handleGameStart = useCallback((score) => {
     // setIsGameOver(true);
-    // setScore(score);
+    setScore(score);
     console.log(` You've scored ${score} points.`)
   }, []);
 
