@@ -16,9 +16,9 @@ import tez from './assets/Img/tez.png'
 
 
 const App = () => {
-	const [txn, setTxn] = useState(false);
+	const [txn, setTxn] = useState(true);
 	const [msg, setMsg] = useState("Click Start Game to pay 3 XTZ and start the game.");
-	const [wallet, setWallet] = useState(null)
+	const [wallets, setWallet] = useState(null)
 	const [disconnect, showDisconnect] =useState(false)
 	const [isActive, setIsActive] = useState(false)
 	let myAddress = ""
@@ -141,19 +141,19 @@ const App = () => {
 								</div>
 								<div>
 								{
-								wallet ? (
+								wallets ? (
 								<div className='wallet_connection_wrapper' 
 								onMouseEnter={() => showDisconnect(true)}
 								onMouseLeave={() =>showDisconnect(false)}>
 
                             <div className='wallet_btn'>
                               <span className=''>
-                              {`tz${wallet.slice(
+                              {`tz${wallets.slice(
                                     2,
                                     3
-                                  )}...${wallet.slice(
-                                    wallet.length - 4,
-                                    wallet.length
+                                  )}...${wallets.slice(
+                                    wallets.length - 4,
+                                    wallets.length
                                   )}`}</span>
                             </div>
                             {
