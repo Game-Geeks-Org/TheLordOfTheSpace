@@ -16,7 +16,7 @@ import tez from './assets/Img/tez.png'
 
 
 const App = () => {
-	const [txn, setTxn] = useState(true);
+	const [txn, setTxn] = useState(false);
 	const [msg, setMsg] = useState("Click Start Game to pay 3 XTZ and start the game.");
 	const [wallets, setWallet] = useState(null)
 	const [disconnect, showDisconnect] =useState(false)
