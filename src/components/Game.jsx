@@ -26,21 +26,13 @@ function Game() {
     console.log(` You've scored ${score} points.`)
   }, []);
 
-  const handleGameStart = useCallback((score) => {
-    // setIsGameOver(true);
-    setScore(score);
-    console.log(` You've scored ${score} points.`)
-  }, []);
-
   useEffect(() => {
     addEventListener("GameOver", handleGameOver);
-    addEventListener("GameStart", handleGameStart);
     return () => {
       unload();
       removeEventListener("GameOver", handleGameOver);
-      removeEventListener("GameStart", handleGameStart);
     };
-  }, [addEventListener, removeEventListener, unload, handleGameOver, handleGameStart]);
+  }, [addEventListener, removeEventListener, unload, handleGameOver]);
 
   return (
     <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
