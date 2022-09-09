@@ -90,7 +90,7 @@ const App = () => {
 										</div>
 										<div className="desc_2">
 											<p className="text-white">The <span>Lord</span> Of </p>
-											<p style={{ fontSize: "135%" }}>The <span>Space</span></p>
+											<p className="text-white" style={{ fontSize: "135%" }}>The <span>Space</span></p>
 										</div>
 									</div>
 								</Col>
