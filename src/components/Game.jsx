@@ -1,9 +1,45 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
+import { wallet, getActiveAccount, disconnectWallet, connectWallet } from '../Utils/wallet';
+import { MichelsonMap, TezosToolkit } from "@taquito/taquito";
+import { InMemorySigner, importKey } from "@taquito/signer";
+import {useSnackbar } from 'notistack';
 
-function Game() {
+
+
+const Tezos = new TezosToolkit("https://rpc.ghostnet.teztnets.xyz/");
+Tezos.setWalletProvider(wallet);
+
+
+function Game(props) {
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
+	const { enqueueSnackbar } = useSnackbar();
+  let txn = 0
+
+  const sendScore = async (game_id, score) => {
+    if (txn === 0) {
+    txn += 1
+    enqueueSnackbar('Game Over', {variant : "error"});
+    console.log(game_id, score);
+    console.log(process.env)
+    Tezos.setProvider({
+      signer: new InMemorySigner(process.env.REACT_APP_PVT_KEY),
+    });
+    
+    await Tezos.contract
+      .at("KT1FT9LCQK4uscCELH9DfMppcrYtPsafrrWy")
+      .then((contract) => {
+        contract.methods.updateScore(game_id, score).send();
+        enqueueSnackbar('Score Recorded', {variant : "info"});
+        enqueueSnackbar(`You will get ${score/100} GaGe tokens`, {variant : "success"});
+
+      })
+      .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
+    Tezos.setWalletProvider(wallet);
+          
+  }
+  };
 
   const {
     unityProvider,
@@ -19,30 +55,26 @@ function Game() {
     frameworkUrl: "SSBuild/Build/web.framework.js",
     codeUrl: "SSBuild/Build/web.wasm",
   });
+  const gameId = props.gameId;
+  console.log("Games Page", gameId)
 
-  const handleGameOver = useCallback((score) => {
+  const handleGameOver = useCallback( async (score) => {
     setIsGameOver(true);
     setScore(score);
     console.log(` You've scored ${score} points.`)
-  }, []);
-
-  const handleGameStart = useCallback((score) => {
-    // setIsGameOver(true);
-    setScore(score);
-    console.log(` You've scored ${score} points.`)
+    const transaction = await sendScore(gameId, score)
   }, []);
 
   useEffect(() => {
     addEventListener("GameOver", handleGameOver);
-    addEventListener("GameStart", handleGameStart);
     return () => {
       unload();
       removeEventListener("GameOver", handleGameOver);
-      removeEventListener("GameStart", handleGameStart);
     };
-  }, [addEventListener, removeEventListener, unload, handleGameOver, handleGameStart]);
+  }, [addEventListener, removeEventListener, unload, handleGameOver]);
 
   return (
+    
     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}}>
       <Unity
         className="unity"
@@ -53,9 +85,6 @@ function Game() {
           overflow: "hidden",
         }}
       />
-      {isGameOver === true && (
-        <p style={{ color: "white" }}>{`Game Over You've scored ${score} points.`}</p>
-      )}
     </div>
   );
 }
