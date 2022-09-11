@@ -75,7 +75,7 @@ const sendXTZ = async (amount) => {
 
 	// At this point we are connected to an account.
 	// Let's send a simple transaction to the wallet that sends 1 mutez to ourselves.
-	const response = await wallet.sendOperations([
+	await wallet.sendOperations([
 	{
 		kind: TezosOperationType.TRANSACTION,
 		destination: myAddress, // Send to ourselves

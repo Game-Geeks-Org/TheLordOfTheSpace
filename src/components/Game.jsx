@@ -1,8 +1,8 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import { wallet, getActiveAccount, disconnectWallet, connectWallet } from '../Utils/wallet';
-import { MichelsonMap, TezosToolkit } from "@taquito/taquito";
-import { InMemorySigner, importKey } from "@taquito/signer";
+import { wallet } from '../Utils/wallet';
+import { TezosToolkit } from "@taquito/taquito";
+import { InMemorySigner } from "@taquito/signer";
 import {useSnackbar } from 'notistack';
 
 
@@ -12,8 +12,6 @@ Tezos.setWalletProvider(wallet);
 
 
 function Game(props) {
-const [isGameOver, setIsGameOver] = useState(false);
-const [score, setScore] = useState(0);
 	const { enqueueSnackbar } = useSnackbar();
 let txn = 0
 
@@ -42,10 +40,9 @@ const {
 	unityProvider,
 	isLoaded,
 	unload,
-	loadingProgression,
 	addEventListener,
 	removeEventListener,
-	sendMessage
+	loadingProgression
 } = useUnityContext({
 	loaderUrl: "SSBuild/Build/web.loader.js",
 	dataUrl: "SSBuild/Build/web.data",
@@ -55,10 +52,9 @@ const {
 const gameId = props.gameId;
 
 const handleGameOver = useCallback( async (score) => {
-	setIsGameOver(true);
-	setScore(score);
-	const transaction = await sendScore(gameId, score)
+	await sendScore(gameId, score)
 }, []);
+
 
 useEffect(() => {
 	addEventListener("GameOver", handleGameOver);
@@ -68,20 +64,22 @@ useEffect(() => {
 	};
 }, [addEventListener, removeEventListener, unload, handleGameOver]);
 
-return (
-	
-	<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}}>
-	<Unity
-		className="unity"
-		unityProvider={unityProvider}
-		style={{
-		width: "100%",
-		aspectRatio: "16:9",
-		overflow: "hidden",
-		}}
-	/>
-	</div>
-);
+	return (
+		<>
+			<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}}>
+			
+			<Unity
+				className="unity"
+				unityProvider={unityProvider}
+				style={{
+				width: "100%",
+				aspectRatio: "16:9",
+				overflow: "hidden",
+				}}
+			/>
+			</div>
+		</>
+	);
 }
 
 export default Game

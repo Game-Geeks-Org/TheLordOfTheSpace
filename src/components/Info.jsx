@@ -21,10 +21,8 @@ const gameId = getRndInteger(1000000,10000000)
 
 const Info = () => {
 	const [txn, setTxn] = useState(false);
-	const [msg, setMsg] = useState("Click Start Game to pay 3 XTZ and start the game.");
 	const [wallets, setWallet] = useState(null)
 	const [disconnect, showDisconnect] =useState(false)
-	const [isActive, setIsActive] = useState(false)
 	const [geekyHeadMsg, setGeekyHeadMsg] = useState("")
 	const { enqueueSnackbar } = useSnackbar();
 	let myAddress = ""
@@ -43,18 +41,14 @@ const Info = () => {
 		} else {
 			myAddress = activeAccount.address;
 		}
-		console.log(myAddress);
 		const platinum = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"0"}`)
 		const gold = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"1"}`)
 		const silver = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"2"}`)
-		console.log("platinum", platinum.data.value)
-		console.log("gold", gold.data.value)
-		console.log("silver", silver.data.value)
 		if ((platinum.data.value > 0) || (gold.data.value > 0) || (silver.data.value > 0)) {
 			enqueueSnackbar('Transaction in process', {variant : "info"});
 			const contract = await tezos.wallet.at(CONTRACT_ADDRESS);
 			
-			const result = await contract.methods.addGame(gameId).send({ amount: 3, mutez: false,
+			await contract.methods.addGame(gameId).send({ amount: 3, mutez: false,
 			}).then(async (op) => {
 				enqueueSnackbar("Transaction Successful", {variant : "success"})
 				setTxn(true)
@@ -66,24 +60,6 @@ const Info = () => {
 			enqueueSnackbar("Not a GeekyHead.", {variant : "error"})
 		}
 	}
-
-	const getHistory = async () => {
-		const address = await getActiveAccount()
-		if (address) {
-			setIsActive(true)
-		}
-
-	}
-
-	
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			getHistory();
-		}, 1000);
-		return () => clearInterval(interval);
-	}, []);
-
 
 
 	// WALLET CONNECTION
@@ -143,6 +119,7 @@ const Info = () => {
 											<p className="text-white">The <span>Lord</span> Of </p>
 											<p className="text-white" style={{ fontSize: "135%" }}>The <span>Space</span></p>
 										</div>
+										<p className="text-white">This is the <b>Beta version</b> of the game. Do share your feedback <a style={{color:"white"}}href="https://bit.ly/tlots-feedback" target="_blank" rel="noreferrer">here</a></p>
 									</div>
 								</Col>
 								<Col lg='6' md='6'>
