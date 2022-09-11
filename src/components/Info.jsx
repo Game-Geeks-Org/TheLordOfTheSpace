@@ -11,6 +11,7 @@ import imag4 from '../assets/Img/head.png'
 import tez from '../assets/Img/tez.png'
 import { TezosToolkit } from "@taquito/taquito";
 import {useSnackbar } from 'notistack';
+import axios from 'axios';
 
 function getRndInteger(min, max) {
 		return Math.floor(Math.random() * (max - min) ) + min;
@@ -24,6 +25,7 @@ const Info = () => {
 	const [wallets, setWallet] = useState(null)
 	const [disconnect, showDisconnect] =useState(false)
 	const [isActive, setIsActive] = useState(false)
+	const [geekyHeadMsg, setGeekyHeadMsg] = useState("")
 	const { enqueueSnackbar } = useSnackbar();
 	let myAddress = ""
 	const tezos = new TezosToolkit("https://rpc.ghostnet.teztnets.xyz/");
@@ -34,30 +36,35 @@ const Info = () => {
 
 	const sendXTZ = async () => {
 		// Check if we are connected. If not, do a permission request first.
-        enqueueSnackbar(`Game Id: ${gameId}`, {variant : "info"});
-		enqueueSnackbar('Transaction Initiated', {variant : "info"});
 		const activeAccount = await wallet.client.getActiveAccount();
 		if (!activeAccount) {
 			const permissions = await wallet.client.requestPermissions();
-			console.log("New connection:", permissions.address);
 			myAddress = permissions.address;
 		} else {
 			myAddress = activeAccount.address;
 		}
-		enqueueSnackbar("Waitning to accept the Transaction", {variant : "info"})
-		const contract = await tezos.wallet.at(CONTRACT_ADDRESS);
-		
-		console.log("Game Id: ", gameId)
-		const result = await contract.methods.addGame(gameId).send({ amount: 3, mutez: false,
-		  }).then(async (op) => {
-			console.log(op.opHash)
-			enqueueSnackbar("Transaction Successful", {variant : "success"})
-			setTxn(true)
-		}).catch((err) => {
-			console.log(err);
-			enqueueSnackbar("Error in Transaction", {variant : "error"})
-		});
-
+		console.log(myAddress);
+		const platinum = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"0"}`)
+		const gold = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"1"}`)
+		const silver = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"2"}`)
+		console.log("platinum", platinum.data.value)
+		console.log("gold", gold.data.value)
+		console.log("silver", silver.data.value)
+		if ((platinum.data.value > 0) || (gold.data.value > 0) || (silver.data.value > 0)) {
+			enqueueSnackbar('Transaction in process', {variant : "info"});
+			const contract = await tezos.wallet.at(CONTRACT_ADDRESS);
+			
+			const result = await contract.methods.addGame(gameId).send({ amount: 3, mutez: false,
+			}).then(async (op) => {
+				enqueueSnackbar("Transaction Successful", {variant : "success"})
+				setTxn(true)
+			}).catch((err) => {
+				enqueueSnackbar("Error in Transaction", {variant : "error"})
+			});	
+		} else {
+			setGeekyHeadMsg(<a style={{textDecorationColor:"None", color:"white"}} href="www.gamegeeks.online/dashboard">"Only GeekyHeads can play the Game. Click here to know more"</a>)
+			enqueueSnackbar("Not a GeekyHead.", {variant : "error"})
+		}
 	}
 
 	const getHistory = async () => {
@@ -179,8 +186,6 @@ const Info = () => {
 
 								</div>
 
-                    
-
 									):(
 									<button className='wallet_btn' onClick={handleConnectWallet}>
 										Connect Wallet
@@ -196,8 +201,9 @@ const Info = () => {
 
 					</div>
 					<div className="container-lg">
-						<div className="game_mode_wrapper">
+						<div className="game_mode_wrapper"><b style={{color:"white"}}><i>{geekyHeadMsg}</i></b><br/>
 							<div className="row gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+							
 								<div className="single_img_wrapper col">
 									<div className="single_img">
 										<img src={image} width='180px' alt="img" />
