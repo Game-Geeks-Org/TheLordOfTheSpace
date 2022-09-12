@@ -26,9 +26,9 @@ const Info = () => {
 	const [geekyHeadMsg, setGeekyHeadMsg] = useState("")
 	const { enqueueSnackbar } = useSnackbar();
 	let myAddress = ""
-	const tezos = new TezosToolkit("https://rpc.ghostnet.teztnets.xyz/");
+	const tezos = new TezosToolkit("https://mainnet.api.tez.ie");
 	tezos.setWalletProvider(wallet);
-	const CONTRACT_ADDRESS = 'KT1FT9LCQK4uscCELH9DfMppcrYtPsafrrWy';
+	const CONTRACT_ADDRESS = 'KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v';
 	
 
 
@@ -41,9 +41,9 @@ const Info = () => {
 		} else {
 			myAddress = activeAccount.address;
 		}
-		const platinum = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"0"}`)
-		const gold = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"1"}`)
-		const silver = await axios.get(`https://api.tzkt.io/v1/bigmaps/281328/keys/{"address":"${myAddress}","nat":"2"}`)
+		const platinum = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"0"}`)
+		const gold = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"1"}`)
+		const silver = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"2"}`)
 		if ((platinum.data.value > 0) || (gold.data.value > 0) || (silver.data.value > 0)) {
 			enqueueSnackbar('Transaction in process', {variant : "info"});
 			const contract = await tezos.wallet.at(CONTRACT_ADDRESS);

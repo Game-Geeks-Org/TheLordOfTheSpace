@@ -1,14 +1,14 @@
 
 import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
-import {TezosOperationType, ColorMode } from "@airgap/beacon-sdk";
+import {ColorMode } from "@airgap/beacon-sdk";
 
-const preferredNetwork = "ghostnet";
+const preferredNetwork = "mainnet";
 const options = {
 name: "Game Geeks: The Lords of the Space", 
 preferredNetwork: preferredNetwork,
 };
-const rpcURL = "https://rpc.ghostnet.teztnets.xyz/";
+const rpcURL = "https://mainnet.api.tez.ie";
 const Tezos = new TezosToolkit(rpcURL);
 const wallet = new BeaconWallet(options);
   
@@ -61,42 +61,11 @@ try {
 const tezos = new TezosToolkit(rpcURL)
 tezos.setWalletProvider(wallet)
 
-const sendXTZ = async (amount) => {
-	await wallet.client.setColorMode(ColorMode.DARK);
-	// Check if we are connected. If not, do a permission request first.
-	const activeAccount = await wallet.client.getActiveAccount();
-	if (!activeAccount) {
-	const permissions = await wallet.client.requestPermissions();
-	console.log("New connection:", permissions.address);
-	myAddress = permissions.address;
-	} else {
-	myAddress = activeAccount.address;
-	}
-
-	// At this point we are connected to an account.
-	// Let's send a simple transaction to the wallet that sends 1 mutez to ourselves.
-	await wallet.sendOperations([
-	{
-		kind: TezosOperationType.TRANSACTION,
-		destination: myAddress, // Send to ourselves
-		amount: `${1}`, // Amount in mutez, the smallest unit in Tezos
-	},
-	]).then(async(op)=>{
-		console.log(op)
-		return "true";
-	}).catch((err)=>{
-		console.log(err);
-		return "false"
-	});
-	
-}
-
 export{
 	connectWallet,
 	disconnectWallet,
 	getActiveAccount,
 	checkIfWalletConnected,
-	sendXTZ,
 	wallet,
 	Tezos
 }

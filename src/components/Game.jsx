@@ -7,7 +7,7 @@ import {useSnackbar } from 'notistack';
 
 
 
-const Tezos = new TezosToolkit("https://rpc.ghostnet.teztnets.xyz/");
+const Tezos = new TezosToolkit("https://mainnet.api.tez.ie");
 Tezos.setWalletProvider(wallet);
 
 
@@ -24,7 +24,7 @@ const sendScore = async (game_id, score) => {
 	});
 	
 	await Tezos.contract
-		.at("KT1FT9LCQK4uscCELH9DfMppcrYtPsafrrWy")
+		.at("KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v") // Mainnet Address KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v
 		.then((contract) => {
 			contract.methods.updateScore(game_id, score).send();
 			enqueueSnackbar('Score Recorded', {variant : "info"});
