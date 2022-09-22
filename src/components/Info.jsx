@@ -11,7 +11,7 @@ import imag4 from '../assets/Img/head.png'
 import tez from '../assets/Img/tez.png'
 import { TezosToolkit } from "@taquito/taquito";
 import {useSnackbar } from 'notistack';
-import axios from 'axios';
+// import axios from 'axios';
 
 function getRndInteger(min, max) {
 		return Math.floor(Math.random() * (max - min) ) + min;
@@ -23,12 +23,12 @@ const Info = () => {
 	const [txn, setTxn] = useState(false);
 	const [wallets, setWallet] = useState(null)
 	const [disconnect, showDisconnect] =useState(false)
-	const [geekyHeadMsg, setGeekyHeadMsg] = useState("")
+	// const [geekyHeadMsg, setGeekyHeadMsg] = useState("")
 	const { enqueueSnackbar } = useSnackbar();
 	let myAddress = ""
-	const tezos = new TezosToolkit("https://mainnet.api.tez.ie");
+	const tezos = new TezosToolkit("https://rpc.ghostnet.teztnets.xyz/");
 	tezos.setWalletProvider(wallet);
-	const CONTRACT_ADDRESS = 'KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v';
+	const CONTRACT_ADDRESS = 'KT1FT9LCQK4uscCELH9DfMppcrYtPsafrrWy';
 	
 
 
@@ -41,24 +41,24 @@ const Info = () => {
 		} else {
 			myAddress = activeAccount.address;
 		}
-		const platinum = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"0"}`)
-		const gold = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"1"}`)
-		const silver = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"2"}`)
-		if ((platinum.data.value > 0) || (gold.data.value > 0) || (silver.data.value > 0)) {
-			enqueueSnackbar('Transaction in process', {variant : "info"});
-			const contract = await tezos.wallet.at(CONTRACT_ADDRESS);
-			
-			await contract.methods.addGame(gameId).send({ amount: 3, mutez: false,
-			}).then(async (op) => {
-				enqueueSnackbar("Transaction Successful", {variant : "success"})
-				setTxn(true)
-			}).catch((err) => {
-				enqueueSnackbar("Error in Transaction", {variant : "error"})
-			});	
-		} else {
-			setGeekyHeadMsg(<a style={{textDecorationColor:"None", color:"white"}} href="www.gamegeeks.online/dashboard">"Only GeekyHeads can play the Game. Click here to know more"</a>)
-			enqueueSnackbar("Not a GeekyHead.", {variant : "error"})
-		}
+		// const platinum = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"0"}`)
+		// const gold = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"1"}`)
+		// const silver = await axios.get(`https://api.tzkt.io/v1/bigmaps/284795/keys/{"address":"${myAddress}","nat":"2"}`)
+		// if ((platinum.data.value > 0) || (gold.data.value > 0) || (silver.data.value > 0)) {
+		enqueueSnackbar('Transaction in process', {variant : "info"});
+		const contract = await tezos.wallet.at(CONTRACT_ADDRESS);
+		
+		await contract.methods.addGame(gameId).send({ amount: 0, mutez: false,
+		}).then(async (op) => {
+			enqueueSnackbar("Transaction Successful", {variant : "success"})
+			setTxn(true)
+		}).catch((err) => {
+			enqueueSnackbar("Error in Transaction", {variant : "error"})
+		});	
+		// } else {
+		// 	setGeekyHeadMsg(<a style={{textDecorationColor:"None", color:"white"}} href="www.gamegeeks.online/dashboard">"Only GeekyHeads can play the Game. Click here to know more"</a>)
+		// 	enqueueSnackbar("Not a GeekyHead.", {variant : "error"})
+		// }
 	}
 
 
@@ -119,7 +119,7 @@ const Info = () => {
 											<p className="text-white">The <span>Lord</span> Of </p>
 											<p className="text-white" style={{ fontSize: "135%" }}>The <span>Space</span></p>
 										</div>
-										<p className="text-white">This is the <b>Beta version</b> of the game. Do share your feedback <a style={{color:"white"}}href="https://bit.ly/tlots-feedback" target="_blank" rel="noreferrer">here</a></p>
+										<p className="text-white">This is the <b>Beta version</b> of the game. Do share your feedback <a style={{color:"white"}} href="https://bit.ly/tlots-feedback" target="_blank" rel="noreferrer">here</a></p>
 									</div>
 								</Col>
 								<Col lg='6' md='6'>
@@ -178,7 +178,7 @@ const Info = () => {
 
 					</div>
 					<div className="container-lg">
-						<div className="game_mode_wrapper"><b style={{color:"white"}}><i>{geekyHeadMsg}</i></b><br/>
+						<div className="game_mode_wrapper">
 							<div className="row gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
 							
 								<div className="single_img_wrapper col">
@@ -187,7 +187,7 @@ const Info = () => {
 									</div>
 									<p className="single-img_desc">Play to <span>Earn</span></p>
 									<button className="pay_btn" onClick={async () => { await sendXTZ() }}>
-										Pay 3<img src={tez} alt="" />
+										Play on Testnet
 
 									</button>
 

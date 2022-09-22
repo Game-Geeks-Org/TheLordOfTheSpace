@@ -8,7 +8,7 @@ const App = () => {
 
 		return (
 			<>
-			<SnackbarProvider maxSnack={3} autoHideDuration={3000}>
+			<SnackbarProvider maxSnack={5} autoHideDuration={5000}>
 				<div>
 					<Info/>
 				</div>

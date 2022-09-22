@@ -3,12 +3,12 @@ import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import {ColorMode } from "@airgap/beacon-sdk";
 
-const preferredNetwork = "mainnet";
+const preferredNetwork = "ghostnet";
 const options = {
 name: "Game Geeks: The Lords of the Space", 
 preferredNetwork: preferredNetwork,
 };
-const rpcURL = "https://mainnet.api.tez.ie";
+const rpcURL = "https://rpc.ghostnet.teztnets.xyz/";
 const Tezos = new TezosToolkit(rpcURL);
 const wallet = new BeaconWallet(options);
   

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import { wallet } from '../Utils/wallet';
 import { TezosToolkit } from "@taquito/taquito";
@@ -7,7 +7,7 @@ import {useSnackbar } from 'notistack';
 
 
 
-const Tezos = new TezosToolkit("https://mainnet.api.tez.ie");
+const Tezos = new TezosToolkit("https://rpc.ghostnet.teztnets.xyz/");
 Tezos.setWalletProvider(wallet);
 
 
@@ -24,11 +24,14 @@ const sendScore = async (game_id, score) => {
 	});
 	
 	await Tezos.contract
-		.at("KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v") // Mainnet Address KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v
+		// Ghostnet: KT1FT9LCQK4uscCELH9DfMppcrYtPsafrrWy
+		// Mainnet Address: KT1SL5fbzHfBcD9pyTAskCLqzJnKxZP7GW2v 
+		.at("KT1FT9LCQK4uscCELH9DfMppcrYtPsafrrWy") 
 		.then((contract) => {
 			contract.methods.updateScore(game_id, score).send();
 			enqueueSnackbar('Score Recorded', {variant : "info"});
 			enqueueSnackbar(`You will get ${score/100} GaGe tokens`, {variant : "success"});
+			enqueueSnackbar(`You can go back to Home Screen Now`, {variant : "info"});
 
 		})
 		.catch((error) => {window.alert("Error");});
@@ -38,11 +41,9 @@ const sendScore = async (game_id, score) => {
 
 const {
 	unityProvider,
-	isLoaded,
 	unload,
 	addEventListener,
 	removeEventListener,
-	loadingProgression
 } = useUnityContext({
 	loaderUrl: "SSBuild/Build/web.loader.js",
 	dataUrl: "SSBuild/Build/web.data",
