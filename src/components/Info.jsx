@@ -155,9 +155,14 @@ const Info = () => {
                             </div>
                             {
                               disconnect && (
-                                <div className='disconnect_btn'>
-                                <span className='disconnect' onClick={handleDisconnectWallet}>Disconnect<i class="ri-edit-circle-line"></i></span>
-                                </div>
+								<>
+									<div className='disconnect_btn'>
+									<span className='copy_addr' onClick={() => navigator.clipboard
+										.writeText(wallets)
+										.then((res) => alert("Address Copied"))}>Copy Address</span> <br/>
+									<span className='disconnect' onClick={handleDisconnectWallet}>Disconnect<i class="ri-edit-circle-line"></i></span>
+									</div>
+								</>
                               )
                             }
 
