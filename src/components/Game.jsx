@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect,useState} from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import { wallet } from '../Utils/wallet';
 import { TezosToolkit } from "@taquito/taquito";
@@ -41,7 +41,9 @@ const sendScore = async (game_id, score) => {
 
 const {
 	unityProvider,
+	sendMessage,
 	unload,
+	isLoaded,
 	addEventListener,
 	removeEventListener,
 } = useUnityContext({
@@ -51,6 +53,29 @@ const {
 	codeUrl: "SSBuild/Build/web.wasm",
 });
 const gameId = props.gameId;
+
+
+
+// LOADING FUNCTION
+const [isPlaying, setIsPlaying] = useState(false);
+const handleStart =  () =>{
+	if (isLoaded === false || isPlaying === true) {
+		return;
+	  }
+	  setIsPlaying(true);
+	  sendMessage("PlayerDataStorage","ReceiveID", 'Rare1');
+}
+
+if(isLoaded){
+handleStart()
+} 
+
+
+
+
+
+
+
 
 const handleGameOver = useCallback( async (score) => {
 	await sendScore(gameId, score)
@@ -63,7 +88,7 @@ useEffect(() => {
 	unload();
 	removeEventListener("GameOver", handleGameOver);
 	};
-}, [addEventListener, removeEventListener, unload, handleGameOver]);
+}, [addEventListener, removeEventListener, unload, handleGameOver,]);
 
 	return (
 		<>
@@ -77,7 +102,10 @@ useEffect(() => {
 				aspectRatio: "16:9",
 				overflow: "hidden",
 				}}
+
+				
 			/>
+
 			</div>
 		</>
 	);
