@@ -116,6 +116,7 @@ body{
     background: transparent;
     border: 1px solid #BF1E2E;
     color: white;
+    padding: 30px;
     font-size: 24px;
     border-radius: 11px;
 }
@@ -138,6 +139,7 @@ body{
     height: 41px;
     border-radius: 52px;
     color: #ffff;
+    
     font-size: 17px;
     text-align: center;
     position: relative;

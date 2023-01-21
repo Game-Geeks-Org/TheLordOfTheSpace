@@ -67,6 +67,7 @@ const Info = () => {
         const { wallet } = await connectWallet();
         setWallet(wallet);
       };
+	  console.log(handleConnectWallet())
 
 	  const handleDisconnectWallet = async () => {
         const { wallet } = await disconnectWallet();
@@ -74,6 +75,7 @@ const Info = () => {
 
       };
 
+	  console.log(handleDisconnectWallet())
 	  
 	  useEffect(() => {
         const func = async () => {
@@ -84,8 +86,6 @@ const Info = () => {
         };
         func();
       }, []);
-
-
 	  //WALLET CONNECTION END
 
 
