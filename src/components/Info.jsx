@@ -74,9 +74,6 @@ const Info = () => {
         setWallet(wallet);
 
       };
-
-	  console.log(handleDisconnectWallet())
-	  
 	  useEffect(() => {
         const func = async () => {
           const account = await getActiveAccount();
